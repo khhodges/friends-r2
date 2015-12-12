@@ -1,0 +1,87 @@
+<div data-role="view" id="signup" data-layout="default" class="signup-view" data-model="app.Signup" data-init="app.Signup.init" data-show="app.Signup.show" data-hide="app.Signup.hide">
+	<div data-role="header">
+		<div data-role="navbar">
+			Register
+			<a class="nav-button nav-button-icon nav-button-back-d hide-text" data-align="left" data-role="backbutton" href="#welcome">Back</a>
+		</div>
+	</div>
+	<div id="touchzone">
+		<img id="zoom_mw" src="styles/images/Tulips.jpg" width="100%" height="auto" data-zoom-image="http://bs3.cdn.telerik.com/v1/wewpzbnzheaxgay7/078af340-9b94-11e5-b24f-eb3e822c17d8"/>
+	</div>
+	<div id="Xcoords" style="visibility:hidden">0.00</div>
+	<div id="Ycoords" style="visibility:hidden">0.00</div>
+	<script>
+		//$("#zoom_mw").elevateZoom({zoomWindowPosition: 7, cursor: "crosshair"});
+	</script>
+
+	<form id="signUp" >
+		<ul id="signup-form" data-role="listview" data-style="inset">
+			<li>
+				<input type="text" id="signupName" data-bind="value: DisplayName" placeholder="Full Name" required>
+			</li>
+			<li>
+				<input type="email" id="signupEmail" data-bind="value: Email" placeholder="email">
+			</li>
+			<li>
+				<input type="text" id="signupUsername" data-bind="value: Username" placeholder="username" required>
+			</li>
+			<li>
+				<input type="password" id="signupPassword" data-bind="value: Password" placeholder="password" required>
+			</li>
+			<li >
+				<div >
+					<input  type="date" id="signupBirthDatePicker" data-bind="value: BirthDate">
+				</div>
+			</li>
+			<li class="select-wrp" >
+				<select id="signupGenderPicker" data-bind="value: Gender" onchange="app.Signup.onSelectChange(this)">
+					<option value="0" selected>gender</option>
+					<option value="1">Male</option>
+					<option value="2">Female</option>
+				</select>
+			</li>
+			<li class="txtarea-wrp" >
+				<textarea id="signupInfo" data-bind="value: About" ></textarea>
+			</li>
+		</ul>
+	</form>
+	
+	<div style="padding:15px 5px 15px 5px; margin: 0px 0px 0px 20px">
+		<a class="btn" data-align="right" style="padding:15px 5px 15px 5px; margin: 0px 0px 0px 5px" data-role="button" data-bind="click: addImage">
+			Camera Avator
+		</a>
+		<a class="btn" data-align="right" style="padding:15px 5px 15px 5px; margin: 0px 0px 0px 5px" data-role="button" data-bind="click: pickImage">
+			Library Avator
+		</a>
+		<div class='adiv' >
+			<img class='crop' id="largeImage" src="styles/images/avatar.png" />
+		</div>
+	
+	</div>
+	<!--<ul id="images" ></ul>-->
+	<script>
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		var X = document.getElementById('Xcoords');
+		var Y = document.getElementById('Ycoords');	
+		var imageObj = new Image();
+		
+		imageObj.onload = function() {
+			// draw cropped image
+			var sourceX = 100;
+			var sourceY = 300;
+			var sourceWidth = 150;
+			var sourceHeight = 150;
+			var destWidth = sourceWidth;
+			var destHeight = sourceHeight;
+			var destX = canvas.width / 2 - destWidth / 2;
+			var destY = canvas.height / 2 - destHeight / 2;
+		
+			context.drawImage(imageObj, sourceX, sourceY, sourceWidth, 
+							  sourceHeight, destX, destY, destWidth, destHeight);
+		};
+		imageObj.src = 'http://bs3.cdn.telerik.com/v1/wewpzbnzheaxgay7/078af340-9b94-11e5-b24f-eb3e822c17d8';
+	</script>
+	<div id="signupBtnWrp" class="signup-btn-wrp disabled">
+		<a class="btn btn-signup" data-role="button" data-bind="click: signup">Register</a>
+	</div></div>

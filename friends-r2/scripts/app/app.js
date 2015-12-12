@@ -1,5 +1,6 @@
 var app = (function (win) {
     'use strict';
+	
 
     // Global error handling
     var showAlert = function(message, title, callback) {
@@ -94,6 +95,7 @@ var app = (function (win) {
         // Return user profile picture url
         resolveProfilePictureUrl: function (id) {
             if (id && id !== emptyGuid) {
+				
                 return el.Files.getDownloadUrl(id);
             } else {
                 return 'styles/images/avatar.png';
