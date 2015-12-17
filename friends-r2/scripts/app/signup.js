@@ -17,11 +17,12 @@ app.Signup = (function () {
 
 		// functional components
 		var dataSource;
-		var validator;
+		var validator;		
+		var avatarImage;
 		var touchzone;
-		var selected = "styles/images/avator.png";
-		var lastMove;
 		var imageObj;
+		var lastMove;
+		var selected = "styles/images/avator.png";
 		
 		// Register user after required fields (username and password) are validated in Backend Services
 		var signup = function () {
@@ -52,7 +53,19 @@ app.Signup = (function () {
 		var init = function () {
 			// Get a reference to our touch-sensitive element
 			touchzone = document.getElementById("touchzone");
+			avatarImage = document.getElementById("avatarImage");
 			imageObj = new Image();			
+			
+/*			avatarImage.addEventListener("load", function() {
+				//app.showAlert(this.naturalWidth + ' ' + this.naturalHeight);
+				if (this.naturalHeight > this.naturalWidth) {
+					avatarImage.className = "landscape";
+				}else {
+					avatarImage.className = "portrate";
+				}			
+				app.showAlert(avatarImage.className.toString());
+			})*/;
+			
 			// Add an event handler for the touchstart event
 			lastMove = null;
 			//touchzone.addEventListener('touchmove', function(event) {
@@ -151,16 +164,7 @@ app.Signup = (function () {
 		var pickImage = function() {
 			function success(imageURI) {
 				selected = imageURI;
-				var avatar = document.getElementById("avatarImage");
-				avatar.src = selected;
-				image.src = selected;
-				if (avatar.naturalHeight > avatar.naturalWidth) {
-					avatar.style.height = "100%";
-					avatar.style.width = "auto";
-				}else {
-					avatar.style.height = "auto";
-					avatar.style.width = "100%";
-				}
+				avatarImage.style.backgroundImage = "url(" + selected+")";
 				app.mobileApp.hideLoading();
 			}
 			
@@ -173,7 +177,7 @@ app.Signup = (function () {
 				quality: 50
 			};
 			navigator.camera.getPicture(success, error, config);
-		}
+		};
 
 		var addImage = function () {
 			var success = function (data) {
@@ -186,7 +190,15 @@ app.Signup = (function () {
 						selected = promise.result.Uri;
 						var avatar = document.getElementById("avatarImage");
 						avatar.src = selected;
-						image.src = selected;
+						//image.src = selected;
+						app.showAlert(avatar.naturalHeight + ", " + avatar.naturalWidth);
+						if (avatar.naturalHeight > avatar.naturalWidth) {
+							avatar.style.height = "100%";
+							avatar.style.width = "auto";
+						}else {
+							avatar.style.height = "auto";
+							avatar.style.width = "100%";
+						}
 						app.mobileApp.hideLoading();
 					})
 			};

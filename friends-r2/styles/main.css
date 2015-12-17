@@ -285,7 +285,7 @@ input[type='week'] {
   height: 119px;
   margin: 1.5em auto;
   text-indent: -9999px;
-  background: transparent url(images/muddy-waters-logo3.jpg) no-repeat 0 0;
+  background: transparent url(images/logo3.jpg) no-repeat 0 0;
   overflow: hidden; background-size: contain;
 }
 
@@ -643,7 +643,7 @@ input[type='week'] {
 
 @media (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   #friendsApp .app-name {
-    background-image: url(images/muddy-waters-logo3.jpg) ;
+    background-image: url(images/logo3.jpg) ;
     background-size: 120px 150px;
 	  background-position: center;
 	  background-size: contain;
