@@ -19,10 +19,9 @@ app.Signup = (function () {
 		var dataSource;
 		var validator;
 		var touchzone;
-		var imageObj;
-		var canvas;
-		var context;
+		var selected = "styles/images/avator.png";
 		var lastMove;
+		var imageObj;
 		
 		// Register user after required fields (username and password) are validated in Backend Services
 		var signup = function () {
@@ -54,39 +53,43 @@ app.Signup = (function () {
 			// Get a reference to our touch-sensitive element
 			touchzone = document.getElementById("touchzone");
 			imageObj = new Image();			
-			imageObj.src = 'http://bs3.cdn.telerik.com/v1/wewpzbnzheaxgay7/078af340-9b94-11e5-b24f-eb3e822c17d8';
 			// Add an event handler for the touchstart event
 			lastMove = null;
-			touchzone.addEventListener('touchmove', function(event) {
-				lastMove = event;
-			}, false);
-			touchzone.addEventListener('touchstart', function(event) {
-				lastMove = event;
-			}, false);
-			touchzone.addEventListener('touchend', function(event) {
-				//alert(event.touches[0].pageX);
-				// Write the coordinates of the touch to the div
-				var H = lastMove.touches[0].target.naturalHeight;
-				var W = lastMove.touches[0].target.naturalWidth;
-				var X = (lastMove.touches[0].pageX) / lastMove.touches[0].target.clientWidth * W - 75;
-				var Y = (lastMove.touches[0].pageY - 45) / lastMove.touches[0].target.clientHeight * H - 75;
-				//X = (event.pageX - posX) * $scope.source.width / theImage.width;
-				if (X > .8 * W)
-					X = .8 * W;
-				if (X < 1)
-					X = 1;
-				//Y = (event.pageY - posY - 50) * $scope.source.height / theImage.height;
-				if (Y > .8 * H)
-					Y = .8 * H;
-				if (Y < 1)
-					Y = 1;
-				$('#Xcoords').text(X);
-				$('#Ycoords').text(Y);
-				cropAvatar(X,Y);
-				//context.clearRect(0, 0, 200, 100);
-				//context.drawImage(imageObj, 100, 100, 150, 150, 150, 150, 150, 150);
-				//alert(event.touches[0].pageY);
-			}, false);
+			//touchzone.addEventListener('touchmove', function(event) {
+			//lastMove = event;
+			//}, false);
+			/*			touchzone.addEventListener('touchstart', function(event) {
+			lastMove = event;
+			//}, false);
+			//touchzone.addEventListener('touchend', function(event) {
+			//alert(event.touches[0].pageX);
+			var largeImage = document.getElementById('zoom_mw');
+			if (largeImage.src.endsWith('avatar.png') || largeImage.src !== selected) {
+			largeImage.src = selected;
+			}else {
+			// Write the coordinates of the touch to the div
+			var H = lastMove.touches[0].target.naturalHeight;
+			var W = lastMove.touches[0].target.naturalWidth;
+			var X = (lastMove.touches[0].pageX) / lastMove.touches[0].target.clientWidth * W - largeImage.width/4;
+			var Y = (lastMove.touches[0].pageY -$(this).offset().top) / lastMove.touches[0].target.clientHeight * H - largeImage.height/4;
+			//X = (event.pageX - posX) * $scope.source.width / theImage.width;
+			if (X > .8 * W)
+			X = .8 * W;
+			if (X < 1)
+			X = 1;
+			//Y = (event.pageY - posY - 50) * $scope.source.height / theImage.height;
+			if (Y > .8 * H)
+			Y = .8 * H;
+			if (Y < 1)
+			Y = 1;
+			$('#Xcoords').text(X);
+			$('#Ycoords').text(Y);
+			cropAvatar(X, Y);
+			//context.clearRect(0, 0, 200, 100);
+			//context.drawImage(imageObj, 100, 100, 150, 150, 150, 150, 150, 150);
+			//alert(event.touches[0].pageY);
+			}
+			}, false);*/
 			
 			//var touchHandler = ;
 			
@@ -141,23 +144,24 @@ app.Signup = (function () {
 		var everlive = new Everlive("wewpzbnzheaxgay7");
 		// Called when a photo is successfully retrieved
 		//
+		var resetImage = function() {
+			var image = document.getElementById("zoom_mw");
+			image.src = selected;
+		}
 		var pickImage = function() {
 			function success(imageURI) {
-				// Uncomment to view the image file URI 
-				// console.log(imageURI);
-				// Get image handle
-				//
-				var largeImage = document.getElementById('largeImage');
-
-				// Unhide image elements
-				//
-				largeImage.style.display = 'block';
-
-				// Show the captured photo
-				// The inline CSS rules are used to resize the image
-				//
+				selected = imageURI;
+				var avatar = document.getElementById("avatarImage");
+				avatar.src = selected;
+				image.src = selected;
+				if (avatar.naturalHeight > avatar.naturalWidth) {
+					avatar.style.height = "100%";
+					avatar.style.width = "auto";
+				}else {
+					avatar.style.height = "auto";
+					avatar.style.width = "100%";
+				}
 				app.mobileApp.hideLoading();
-				largeImage.src = imageURI;
 			}
 			
 			var error = function () {
@@ -168,7 +172,6 @@ app.Signup = (function () {
 				destinationType: Camera.DestinationType.FILE_URI,
 				quality: 50
 			};
-			app.mobileApp.showLoading();
 			navigator.camera.getPicture(success, error, config);
 		}
 
@@ -180,8 +183,11 @@ app.Signup = (function () {
 										  base64: data
 									  })
 					.then(function (promise) {
-						//promise.result.Uri ="";
-						loadPhotos(promise);
+						selected = promise.result.Uri;
+						var avatar = document.getElementById("avatarImage");
+						avatar.src = selected;
+						image.src = selected;
+						app.mobileApp.hideLoading();
 					})
 			};
 			var error = function () {
@@ -215,31 +221,30 @@ app.Signup = (function () {
 				var largeImage = document.getElementById('largeImage');
 				largeImage.style.display = 'block';
 				largeImage.src = promise.result.Uri;
-				/*files.push(promise.result.Uri);
-				$("#images").kendoMobileListView({
-				dataSource: files,
-				template: "<div class='adiv' ><img class='crop' src='#: data #' ></div>"
-				});*/
 			}
 			app.mobileApp.hideLoading();
 		};
 
-		var cropAvatar = function(X,Y) {
+		var cropAvatar = function(X, Y) {
 			var source = new Image();
-			source.src = "styles/images/Tulips.jpg";
+			var d = document.getElementById("zoom_mw");
+			source.src = d.src;
 			var canvas = document.getElementById("myCanvas");
+			var avatar = document.getElementById("myCanvas");
 			var context = canvas.getContext("2d");
 			canvas.width = source.width;
 			canvas.height = source.height;
 			if (source.height > source.width) {
-				context.drawImage(source, X, Y, 200, 200, 0, 0, source.height, source.height);
+				context.drawImage(source, X, Y, source.height / 2, source.height / 2, 0, 0, source.height, source.height);
+				avatar.style.height = source.height / 2;
 			} else {
-				context.drawImage(source, X, Y, 200, 200, 0, 0, source.width, source.width);
+				context.drawImage(source, X, Y, source.width / 2, source.width / 2, 0, 0, source.width, source.width);
+				avatar.style.width = source.width / 2;
 			}
 			var size = 200;
 			var scale = 10;
 			context.font = size + "px impact";
-			var lineOfText = "Your browser does not support the canvas element";
+			var lineOfText = "Kenneth Hamer-Hodges";
 
 			while (context.measureText(lineOfText).width / canvas.offsetWidth > 1) {
 				size = size - scale;
@@ -255,8 +260,16 @@ app.Signup = (function () {
 			var imgURI = canvas.toDataURL();
 
 			setTimeout(function() {
-				var image = document.getElementById("zoom_mw");
-				image.src = imgURI;
+				var imageA = document.getElementById("avatarImage");
+				imageA.src = imgURI;
+				if (imageA.style.height > imageA.style.width) {
+					imageA.style.height = "100%";
+					imageA.style.width = "auto";
+				}else {
+					imageA.style.height = "auto";
+					imageA.style.width = "100%";
+				}
+				canvas.style.visibility = 'hidden';
 			}, 200);
 		}
 		return {
@@ -266,7 +279,8 @@ app.Signup = (function () {
 			onSelectChange: onSelectChange,
 			signup: signup,
 			addImage: addImage,
-			pickImage: pickImage
+			pickImage: pickImage,
+			resetImage: resetImage
 		};
 	}()
 	);
