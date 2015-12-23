@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<script src="cordova.js"></script>
+		<script src="kendo/js/jquery.min.js"></script>
+		<script src="kendo/js/kendo.mobile.min.js"></script>
+		<script src="bower_components/everlive/min/everlive.all.min.js"></script>
+		<script src="scripts/app/main.js" type="text/javascript"></script>
+
+		<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+		<link href="styles/main.css" rel="stylesheet" />
+		<script type="text/css">
+			.img {
+			}
+			.img-title {
+			margin-left: .75em;
+			vertical-align: top;  
+			font-size: large;}</script>
+	</head>
+	<body id="imagesApp">
+		<section data-role="layout" data-id="default">
+			<!--View content will render here-->
+		</section>
+		<!--WELCOME VIEW -->
+		<div data-role="view" id="view-all-images" data-layout="default" class="images-view" data-model="app.viewModels.images">
+			<header data-role="header">
+				<div data-role="navbar">
+					Images
+					<a class="nav-button" data-align="right" data-role="button" data-icon="add" href="views/addImage.html"></a>
+				</div>
+			</header>
+
+			<ul id="images-listview" data-style="inset" data-role="listview" data-template="imageTemplate"
+				data-bind="source: images"></ul>
+			<p id="no-images-span" hidden="hidden" class="no-images-msg">
+				<b>You don't have any images uploaded yet.</b><br /><br />Tap on the plus sign to add one.
+			</p>
+		</div>
+
+		<!-- Stuff ListView Template -->
+		<script type="text/x-kendo-template" id="imageTemplate">
+			<div data-role="touch">
+				<div class="user-share">
+					<img data-align="left" id="Picture" data-bind="attr:{src: PictureUrl}" width="75" />
+					<a class="img-title">${Title}</a>
+				</div>
+			</div>
+		</script>
+	</body>
+</html>

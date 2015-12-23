@@ -103,6 +103,21 @@ app.Activities = (function () {
 
             app.mobileApp.navigate('views/activityView.html?uid=' + e.data.uid);
         };
+		
+		        // Navigate to activityView When some activity is selected
+/*        var activityDefault = function (e) {
+						        
+			var listView = $("#activities-listview").data("kendoMobileListView");
+			var children = listView.element.children();
+			var activityUid;
+			for (var x = 0; x < children.length; x++) {
+				if (listView.element.children()[x].id === id) {
+					activityUid = listView.element.children()[x].Uid;
+				}
+			}
+
+            app.mobileApp.navigate('views/addActivityView.html?uid=' + e.data.uid);
+        };*/
 
         // Navigate to app home
         var navigateHome = function () {
@@ -119,10 +134,12 @@ app.Activities = (function () {
                 navigateHome();
             });
         };
+		
 
         return {
             activities: activitiesModel.activities,
             activitySelected: activitySelected,
+			//activityDefault: activityDefault,
             logout: logout
         };
 

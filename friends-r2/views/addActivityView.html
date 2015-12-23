@@ -1,15 +1,37 @@
-<div data-role="view" id="share" data-layout="default" data-transition="overlay:down" class="add-activity-view"
-    data-init="app.AddActivity.init" data-show="app.AddActivity.show" data-model="app.AddActivity">
-    <div data-role="header">
-        <div data-role="navbar">
-            Friends
-            <a class="nav-button" data-align="left" data-role="backbutton">Cancel</a>
-            <a class="nav-button" data-align="right" data-role="button" data-bind="click: saveActivity">Done</a>
-        </div>
-    </div>
-    <div id="enterStatus" class="share-form-wrp" data-role="listview" data-style="inset">
-        <div class="user-share">
-            <textarea id="newStatus" placeholder="What's on your mind?" required validationMessage="Comment text is required!"></textarea>
-        </div>
-    </div>
+<div data-role="view" id="add-activity" data-layout="default" class="activity-view" data-init="app.addActivity.init" data-show="app.addActivity.show">
+
+	<div data-role="header">
+		<div data-role="navbar">
+			Event Report
+			<a class="nav-button" data-align="left" data-role="backbutton">Cancel</a>
+			<a class="nav-button" data-align="right" data-role="button" data-bind="click: saveActivity">Save</a>
+		</div>
+	</div>
+	<div id="status-container" class="user-status-wrp cf">
+		<div data-role="navbar">
+			<a class="nav-button nav-button-icon nav-button-back hide-text" data-align="left" data-role="backbutton">Back</a>
+			<a class="nav-button nav-button-icon nav-button-camera hide-text" data-align="right" data-role="button" data-click="app.addActivity.takeAnImage">Delete</a>
+		</div>
+		<div class="picture-wrp">
+			<img id="addPicture" width="100%" >
+			<div class="user-info">
+				<h2 id="addPersonName" class="person-name" ></h2>
+				<span id="addActivityDate" class="time-span"></span>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="activity-content">
+				<span id="activityText" class="user-share-txt">Replace example text below to add a comment on your visit and click the camera icon to add a matching picture that highlights your visit...</span>
+
+				<div id="enterStatus" class="share-form-wrp" data-style="inset">
+					<div class="user-share">
+						<textarea id="newStatus" placeholder="What's on your mind?" required validationMessage="Comment text is required!"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 </div>

@@ -129,8 +129,6 @@ app.Signup = (function () {
 		var show = function () {
 			$signupInfo.prop('rows', 1);
 			dataSource = kendo.observable({
-											  Xvalue: '300',
-											  Yvalue: '300',
 											  Username: '',
 											  Password: '',
 											  DisplayName: '',				
@@ -164,7 +162,7 @@ app.Signup = (function () {
 		var pickImage = function() {
 			function success(imageURI) {
 				selected = imageURI;
-				avatarImage.style.backgroundImage = "url(" + selected+")";
+				avatarImage.style.backgroundImage = "url(" + selected + ")";
 				app.mobileApp.hideLoading();
 			}
 			

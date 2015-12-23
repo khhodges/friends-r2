@@ -236,6 +236,9 @@ input[type='week'] {
 #friendsApp .nav-button-comment {
   background-image: url(images/icon-comment.png);
 }
+#friendsApp .nav-button-camera {
+  background-image: url(images/camera.png);
+}
 
 #friendsApp .nav-button-delete {
   background-image: url(images/icon-delete.png);
@@ -285,7 +288,7 @@ input[type='week'] {
   height: 119px;
   margin: 1.5em auto;
   text-indent: -9999px;
-  background: transparent url(images/logo3.jpg) no-repeat 0 0;
+  background: transparent url(images/Tulips.jpg) no-repeat 0 0;
   overflow: hidden; background-size: contain;
 }
 
@@ -413,6 +416,7 @@ input[type='week'] {
 
 #friendsApp .activity-view .user-status-wrp .content {
   padding: 1em;
+  width:300px;
 }
 
 #friendsApp .activity-view .activity-content {
@@ -498,13 +502,13 @@ input[type='week'] {
 
 #friendsApp .user-avatar {
   float: left;
-  width: 100px;
+  width: 80px;
 }
 
 #friendsApp .user-avatar img {
   width: 100%;
   height: auto;
-  border-radius: 50px;
+  border-radius: 40px;
   object-fit: contain;
 }
 
@@ -516,7 +520,8 @@ input[type='week'] {
 }
 
 #friendsApp .activity-content .picture {
-  margin: 0 0 1em;
+  margin: auto;
+	text-align:center;
 }
 
 #friendsApp .person-name,
@@ -580,7 +585,7 @@ input[type='week'] {
 }
 
 #friendsApp .activity-view .picture-wrp::before {
-  content: '';
+  content: ' ';
   position: absolute;
   top: 0;
   right: 0;
@@ -643,7 +648,7 @@ input[type='week'] {
 
 @media (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   #friendsApp .app-name {
-    background-image: url(images/logo3.jpg) ;
+    background-image: url(images/Tulips.jpg) ;
     background-size: 120px 150px;
 	  background-position: center;
 	  background-size: contain;
