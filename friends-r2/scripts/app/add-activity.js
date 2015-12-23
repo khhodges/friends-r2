@@ -37,6 +37,8 @@ app.addActivity = (function () {
             
 			activityUid = e.view.params.uid;
 			// Cerate new activity in Activities model
+			//var allItems = app.Activities.activities;
+			//activity = allItems.add();
 			var userName = app.Users.currentUser;
 			document.getElementById('addPersonName').innerHTML = userName.data.DisplayName;			
 			var today = app.helper.formatDate(new Date);
@@ -51,13 +53,6 @@ app.addActivity = (function () {
 			function success(imageURI) {
 				var picture = document.getElementById("addPicture");
 				picture.src = imageURI;
-				if (picture.naturalHeight/picture.naturalWidth < 4/3) {
-							picture.style.height = "auto";
-							picture.style.width = "100";
-						}else {
-							picture.style.height = "auto";
-							picture.style.width = "120%";
-						}
 				app.mobileApp.hideLoading();
 			}
 			
@@ -93,33 +88,12 @@ app.addActivity = (function () {
 		};
 		
 		var saveActivity = function () {
-			// Validating of the required fields
-			if (validator.validate()) {function (data) {
-				everlive.Files.create({
-										  Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
-										  ContentType: "image/jpeg",
-										  base64: data
-									  })
-					.then(function (promise) {
-						selected = promise.result.Uri;
-						var avatar = document.getElementById("avatarImage");
-						avatar.src = selected;
-						//image.src = selected;
-						app.showAlert(avatar.naturalHeight + ", " + avatar.naturalWidth);
-						if (avatar.naturalHeight > avatar.naturalWidth) {
-							avatar.style.height = "100%";
-							avatar.style.width = "auto";
-						}else {
-							avatar.style.height = "auto";
-							avatar.style.width = "100%";
-						}
-						app.mobileApp.hideLoading();
-					})
-			};
+			
+/*			// Validating of the required fields
+			if (validator.validate()) {
 				// Adding new activity to Activities model
-				var allItems = app.Activities.activities;
-			    var activity = allItems.add();
-				activity.Text = $newStatus.val();
+				var z = document.getElementById('newStatus');
+				activity.Text = z.val();
 				activity.UserId = app.Users.currentUser.get('data').Id;
                 
 				activities.one('sync', function () {
@@ -127,7 +101,7 @@ app.addActivity = (function () {
 				});
                 
 				activities.sync();
-			}
+			}*/
 		};
         
 		return {

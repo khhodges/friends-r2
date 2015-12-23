@@ -64,7 +64,7 @@ app.Signup = (function () {
 					avatarImage.className = "portrate";
 				}			
 				app.showAlert(avatarImage.className.toString());
-			})*/;
+			});;;;*/
 			
 			// Add an event handler for the touchstart event
 			lastMove = null;
