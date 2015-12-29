@@ -24,6 +24,8 @@
     "android.permission.WRITE_EXTERNAL_STORAGE"
   ],
   "CorePlugins": [
+    "com.telerik.mobiletesting",
+    "com.telerik.plugin.eqatecanalytics",
     "org.apache.cordova.camera",
     "org.apache.cordova.device",
     "org.apache.cordova.device-orientation",
@@ -69,5 +71,5 @@
   "WP8WindowsPublisherName": "CN=Telerik",
   "WP8PackageIdentityName": "1234Telerik.com.telerik.everlivefriendshybrid",
   "WPSdk": "8.1",
-  "CordovaPluginVariables": {}
+  "iOSDeploymentTarget": "6.0"
 }
