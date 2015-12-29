@@ -11,9 +11,9 @@ var app = (function (win) {
 		showAlert(message, 'Error occured');
 	};
 	
-	window.onerror = function (message,file,line){
-		alert("Error: " + message +", File: "+file+", Line: "+line);
-    }
+	window.onerror = function (message, file, line) {
+		alert("Error: " + message + ", File: " + file + ", Line: " + line);
+	}
 
 	win.addEventListener('error', function (e) {
 		e.preventDefault();
@@ -63,6 +63,8 @@ var app = (function (win) {
 		// Handle "backbutton" event
 		document.addEventListener('backbutton', onBackKeyDown, false);
 
+		//feedback.initialize('wewpzbnzheaxgay7');
+
 		navigator.splashscreen.hide();
 
 		if (analytics.isAnalytics()) {
@@ -94,6 +96,15 @@ var app = (function (win) {
 	var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
 	var AppHelper = {
+		
+		// Return absolute user profile picture url
+		resolveBackgroundPictureUrl: function (id) {
+			if (id && id !== emptyGuid) {
+				return 'url('+ el.Files.getDownloadUrl(id) +')';
+			} else {
+				return 'styles/images/avatar.png';
+			}
+		},
 
 		// Return user profile picture url
 		resolveProfilePictureUrl: function (id) {
@@ -102,7 +113,6 @@ var app = (function (win) {
 			} else {
 				return 'styles/images/avatar.png';
 			}
-			
 		},
 
 		// Return current activity picture url
@@ -127,8 +137,92 @@ var app = (function (win) {
 		autoSizeTextarea: function () {
 			var rows = $(this).val().split('\n');
 			$(this).prop('rows', rows.length + 1);
+		},
+		
+		convertToDataURL: function convertToDataURLviaCanvas(url, callback, outputFormat) {
+			var img = new Image();
+			img.crossOrigin = 'Anonymous';
+			img.onload = function() {
+				var canvas = document.createElement('CANVAS');
+				var ctx = canvas.getContext('2d');
+				var dataURL;
+				canvas.height = this.height;
+				canvas.width = this.width;
+				ctx.drawImage(this, 0, 0);
+				dataURL = canvas.toDataURL(outputFormat, 0.5);
+				var ImgData = dataURL.substring("data:image/jepg;base64,".length);
+				//var data = atob(dataURL.substring("data:image/jpeg;base64,".length)),asArray = new Uint8Array(data.length);
+				
+				callback(ImgData);
+				canvas = null; 
+			};
+			img.src = url;
 		}
 	};
+	
+	var fileHelper = {
+		
+		uploadPhoto: function (imageURI, server) {
+			var options = new FileUploadOptions();
+			options.fileKey = "file";
+			options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+			options.mimeType = "image/jpeg";
+
+			var params = {};
+			params.value1 = "test";
+			params.value2 = "param";
+
+			options.params = params;
+
+			var ft = new FileTransfer();
+			ft.upload(imageURI, encodeURI(server), win, fail, options);
+		},
+
+		win: function (r) {
+			console.log("Code = " + r.responseCode);
+			console.log("Response = " + r.response);
+			console.log("Sent = " + r.bytesSent);
+		},
+		fail:function (error) {
+			alert("An error has occurred: Code = " + error.code);
+			console.log("upload error source " + error.source);
+			console.log("upload error target " + error.target);
+		}
+	}
+	
+	/*(function (g) {
+	var productId = "fdee0d40eb1e48e29ee4efed625ebae3"; // App unique product key
+
+	// Make analytics available via the window.analytics variable
+	// Start analytics by calling window.analytics.Start()
+	var analytics = g.analytics = g.analytics || {};
+	analytics.Start = function () {
+	// Handy shortcuts to the analytics api
+	var factory = window.plugins.EqatecAnalytics.Factory;
+	var monitor = window.plugins.EqatecAnalytics.Monitor;
+	// Create the monitor instance using the unique product key for Analytics
+	var settings = factory.CreateSettings(productId);
+	settings.LoggingInterface = factory.CreateTraceLogger();
+	factory.CreateMonitorWithSettings(settings,
+	function () {
+	console.log("Monitor created");
+	// Start the monitor inside the success-callback
+	monitor.Start(function () {
+	console.log("Monitor started");
+	});
+	},
+	function (msg) {
+	console.log("Error creating monitor: " + msg);
+	});
+	}
+	analytics.Stop = function () {
+	var monitor = window.plugins.EqatecAnalytics.Monitor;
+	monitor.Stop();
+	}
+	analytics.Monitor = function () {
+	return window.plugins.EqatecAnalytics.Monitor;
+	}
+	})(window);*/
 
 	var os = kendo.support.mobileOS,
 		statusBarStyle = os.ios && os.flatVersion >= 700 ? 'black-translucent' : 'black';

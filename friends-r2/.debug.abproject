@@ -1,0 +1,7 @@
+{
+  "CordovaPluginVariables": {
+    "com.telerik.mobiletesting": {
+      "IOS_APP_URL": "com.sipantic.friends"
+    }
+  }
+}

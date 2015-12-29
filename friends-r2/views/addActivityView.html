@@ -1,10 +1,10 @@
-<div data-role="view" id="add-activity" data-layout="default" class="activity-view" data-init="app.addActivity.init" data-show="app.addActivity.show">
+<div data-role="view" id="add-activity" data-layout="default" data-transition="overlay:down" class="activity-view" data-init="app.addActivity.init" data-show="app.addActivity.show" data-model="app.AddActivity">
 
 	<div data-role="header">
 		<div data-role="navbar">
 			Event Report
 			<a class="nav-button" data-align="left" data-role="backbutton">Cancel</a>
-			<a class="nav-button" data-align="right" data-role="button" data-bind="click: removeActivity">Save</a>
+			<a class="nav-button" data-align="right" data-role="button" data-click="app.addActivity.saveIt">Save</a>
 		</div>
 	</div>
 	<div id="status-container" class="user-status-wrp cf">

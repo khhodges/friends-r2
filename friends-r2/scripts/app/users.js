@@ -21,6 +21,7 @@ app.Users = (function () {
 
                 var currentUserData = data.result;
                 currentUserData.PictureUrl = app.helper.resolveProfilePictureUrl(currentUserData.Picture);
+				
                 currentUser.set('data', currentUserData);
 
                 // Get the data about all registered users

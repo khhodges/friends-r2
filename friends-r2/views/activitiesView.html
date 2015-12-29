@@ -18,9 +18,10 @@
 <script type="text/x-kendo-template" id="activityTemplate">
     <div data-role="touch" data-bind="events: { tap: activitySelected }" class="cf">
         <div class="user-avatar">
-            <img data-bind="attr:{src: User().PictureUrl}" alt="#: User().DisplayName #">
+            <!--img data-bind="attr:{src: User().PictureUrl}" alt="#: User().DisplayName #"-->
+			<div data-bind="style:{backgroundImage: User().urlPictureUrl}" ></div>
         </div>
-        <div class="activity-content">
+        <div class="activity-content" style="padding:50px; margin: -50px 0px -50px 0px">
             <h2 class="person-name">#: User().DisplayName #</h2>
             <div data-bind="visible: Picture">
                 <img id="picture" class="picture" data-bind="attr:{src: PictureUrl()}" width="100%">

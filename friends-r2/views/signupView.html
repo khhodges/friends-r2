@@ -31,40 +31,6 @@
 		</select>
 		<textarea id="signupInfo" style="visibility:hidden" data-bind="value: About"></textarea>
 	</form>
-	<style>
-		.round
-		{
-			display: flex;
-			justify-content: center;
-			border-radius: 50%;
-			overflow: hidden;
-			width: 100px;
-			height: 100px;
-		}
-		.round img
-		{
-			width: 100px; height: auto;
-		}
-		.round landscape
-		{
-			width: auto; height: 100px;
-		}
-		.cover
-		{
-			width: 100px;
-			height: 100px;
-			border-radius: 50px;
-			overflow: hidden;
-		}
-		.video-thumbnail
-		{
-			height: 100%;
-			background-size: cover;
-			-moz-background-size: cover;
-			-webkit-background-size: cover;
-			background-position: center;
-		}
-	</style>
 	<div style="padding:25px; margin: -110px 0px 0px 0px">
 		<table>
 			<tr>
@@ -74,7 +40,7 @@
 					</div>
 				</td>
 				<td>
-					<a class="btn" data-align="right" data-role="button" data-bind="click: pickImage" style="margin: 20px;">
+					<a class="btn" data-align="right" data-role="button" data-bind="click: addImage" style="margin: 20px;">
 						Take a Selfie!
 					</a>
 				</td>

@@ -34,6 +34,7 @@ app.Signup = (function () {
 			}
 			//app.showAlert("addImage to " + dataSource.About);
 			dataSource.BirthDate = birthDate;
+			dataSource.Picture = "204f9c00-a9ae-11e5-bccb-8db8d990cdfd";
 
 			Everlive.$.Users.register(
 				dataSource.Username,
@@ -56,14 +57,14 @@ app.Signup = (function () {
 			avatarImage = document.getElementById("avatarImage");
 			imageObj = new Image();			
 			
-/*			avatarImage.addEventListener("load", function() {
-				//app.showAlert(this.naturalWidth + ' ' + this.naturalHeight);
-				if (this.naturalHeight > this.naturalWidth) {
-					avatarImage.className = "landscape";
-				}else {
-					avatarImage.className = "portrate";
-				}			
-				app.showAlert(avatarImage.className.toString());
+			/*			avatarImage.addEventListener("load", function() {
+			//app.showAlert(this.naturalWidth + ' ' + this.naturalHeight);
+			if (this.naturalHeight > this.naturalWidth) {
+			avatarImage.className = "landscape";
+			}else {
+			avatarImage.className = "portrate";
+			}			
+			app.showAlert(avatarImage.className.toString());
 			});;;;*/
 			
 			// Add an event handler for the touchstart event
@@ -186,7 +187,8 @@ app.Signup = (function () {
 									  })
 					.then(function (promise) {
 						selected = promise.result.Uri;
-						var avatar = document.getElementById("avatarImage");
+						avatarImage.style.backgroundImage = "url(" + selected + ")";
+						/*var avatar = document.getElementById("avatarImage");
 						avatar.src = selected;
 						//image.src = selected;
 						app.showAlert(avatar.naturalHeight + ", " + avatar.naturalWidth);
@@ -196,7 +198,7 @@ app.Signup = (function () {
 						}else {
 							avatar.style.height = "auto";
 							avatar.style.width = "100%";
-						}
+						}*/
 						app.mobileApp.hideLoading();
 					})
 			};
